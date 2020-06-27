@@ -71,3 +71,33 @@ func TestFindByPaper(t *testing.T) {
 		t.Errorf("Error to persist information in database %s", err)
 	}
 }
+
+func TestUpdatePaper(t *testing.T) {
+	model, err := service.FindByPaper(TESTPAPER)
+
+	if err != nil {
+		t.Errorf("Error to persist information in database %s", err)
+	} else {
+
+		model.Company = "New Company"
+
+		if err := service.Update(model.ID.Hex(), model); err != nil {
+			t.Errorf("Error to update %s", err)
+		}
+	}
+}
+
+func TestDeletePaper(t *testing.T) {
+	model, err := service.FindByPaper(TESTPAPER)
+
+	if err != nil {
+		t.Errorf("Error to persist information in database %s", err)
+	} else {
+
+		model.Company = "New Company"
+
+		if err := service.Delete(model.ID.Hex()); err != nil {
+			t.Errorf("Error to update %s", err)
+		}
+	}
+}
