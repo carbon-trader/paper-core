@@ -27,7 +27,7 @@ func TestAddPaper(t *testing.T) {
 
 	var model = model.PaperModel{
 		ID:                   bson.NewObjectId(),
-		Paper:                TESTPAPER,
+		Paper:                "TESTE1",
 		Type:                 "ON",
 		Company:              "Teste Itau",
 		Sector:               "Financeiro",
@@ -37,20 +37,14 @@ func TestAddPaper(t *testing.T) {
 		CreatedBy:            "lribas",
 	}
 
-	model, err := service.FindByPaper(TESTPAPER)
-
-	if err != nil {
+	if err := service.Save(model); err != nil {
 		t.Errorf("Error to persist information in database %s", err)
-	}
-
-	if model.Paper != TESTPAPER {
-		if err := service.Save(model); err != nil {
-			t.Errorf("Error to persist information in database %s", err)
-		}
 	}
 }
 
 func TestGetAllPaper(t *testing.T) {
+	testing.Init()
+
 	models, err := service.GetAll()
 
 	if err != nil {
@@ -65,6 +59,7 @@ func TestGetAllPaper(t *testing.T) {
 }
 
 func TestFindByPaper(t *testing.T) {
+	testing.Init()
 	_, err := service.FindByPaper(TESTPAPER)
 
 	if err != nil {
@@ -73,6 +68,7 @@ func TestFindByPaper(t *testing.T) {
 }
 
 func TestUpdatePaper(t *testing.T) {
+	testing.Init()
 	model, err := service.FindByPaper(TESTPAPER)
 
 	if err != nil {
@@ -88,6 +84,7 @@ func TestUpdatePaper(t *testing.T) {
 }
 
 func TestDeletePaper(t *testing.T) {
+	testing.Init()
 	model, err := service.FindByPaper(TESTPAPER)
 
 	if err != nil {
