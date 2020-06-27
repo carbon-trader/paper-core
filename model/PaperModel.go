@@ -14,7 +14,7 @@ type PaperModel struct {
 	Company              string        `bson:"company" json:"company"`
 	Sector               string        `bson:"sector" json:"sector"`
 	Subsector            string        `bson:"subsector" json:"subsector"`
-	LastBalanceProcessed time.Time     `bson:"" json:""`
+	LastBalanceProcessed time.Time     `bson:"lastBalanceProcessed" json:"lastBalanceProcessed"`
 	CreatedAt            time.Time     `bson:"created_at" json:"created_at"`
 	UpdatedAt            time.Time     `bson:"updated_at" json:"updated_at"`
 	CreatedBy            string        `bson:"created_by" json:"created_by"`
