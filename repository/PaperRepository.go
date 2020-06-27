@@ -8,11 +8,8 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-// PaperRepository struct
-type PaperRepository struct {
-	Server   string
-	Database string
-}
+// PaperRepository exporter
+type PaperRepository struct{}
 
 var db *mgo.Database
 
@@ -21,9 +18,8 @@ const (
 	COLLECTION = "paper"
 )
 
-//Connect function to access database
-func (p *PaperRepository) Connect() {
-	session, err := mgo.Dial(p.Server)
+func (repository *PaperRepository) _Connect(Server string, Database string) {
+	session, err := mgo.Dial(Server)
 
 	// Verify if occurs some error and stop application
 	if err != nil {
@@ -31,30 +27,33 @@ func (p *PaperRepository) Connect() {
 	}
 
 	// Establish a session with database
-	db = session.DB(p.Database)
+	db = session.DB(Database)
 }
 
-// Save func
-func (p *PaperRepository) Save(model model.PaperModel) error {
+func (repository *PaperRepository) _Save(model model.PaperModel) error {
 	err := db.C(COLLECTION).Insert(&model)
 	return err
 }
 
-// Delete func
-func (p *PaperRepository) Delete(id string) error {
-	err := db.C(COLLECTION).RemoveId(bson.ObjectIdHex(id))
-	return err
-}
-
-// Update func
-func (p *PaperRepository) Update(id string, model model.PaperModel) error {
+func (repository *PaperRepository) _Update(id string, model model.PaperModel) error {
 	err := db.C(COLLECTION).UpdateId(bson.ObjectIdHex(id), &model)
 	return err
 }
 
-// GetAll func
-func (p *PaperRepository) GetAll() ([]model.PaperModel, error) {
+func (repository *PaperRepository) _Delete(id string) error {
+	err := db.C(COLLECTION).RemoveId(bson.ObjectIdHex(id))
+	return err
+}
+
+func (repository *PaperRepository) _GetAll() ([]model.PaperModel, error) {
 	var model []model.PaperModel
 	err := db.C(COLLECTION).Find(bson.M{}).All(&model)
+
+	return model, err
+}
+
+func (repository *PaperRepository) _FindByPaper(paper string) (model.PaperModel, error) {
+	var model model.PaperModel
+	err := db.C(COLLECTION).Find(bson.M{"paper": paper}).One(&model)
 	return model, err
 }
