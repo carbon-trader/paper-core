@@ -31,11 +31,11 @@ func (service *PaperService) isDBAlive() error {
 }
 
 //Save service func
-func (service *PaperService) Save(model model.PaperModel) (string, error) {
+func (service *PaperService) Save(model model.PaperModel) (bson.ObjectId, error) {
 	model.ID = bson.NewObjectId()
 	model.CreatedAt = time.Now()
 
-	return model.ID.Hex(), repository._Save(model)
+	return model.ID, repository._Save(model)
 }
 
 //Update service func
