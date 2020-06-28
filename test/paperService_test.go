@@ -37,7 +37,7 @@ func TestAddPaper(t *testing.T) {
 		CreatedBy:            "lribas",
 	}
 
-	if err := service.Save(model); err != nil {
+	if _, err := service.Save(model); err != nil {
 		t.Errorf("Error to persist information in database %s", err)
 	}
 }
