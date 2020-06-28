@@ -24,7 +24,7 @@ func (repository *PaperRepository) _IsAlive() error {
 
 func (repository *PaperRepository) _CreateIndex() {
 	index := mgo.Index{
-		Key:        []string{"paper", "company"},
+		Key:        []string{"paper"},
 		Unique:     true,
 		DropDups:   true,
 		Background: true,
