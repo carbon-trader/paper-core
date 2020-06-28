@@ -32,7 +32,7 @@ func TestAddPaper(t *testing.T) {
 		Company:              "Teste Itau",
 		Sector:               "Financeiro",
 		Subsector:            "Banco",
-		LastBalanceProcessed: time.Now(),
+		LastBalanceProcessed: "31/03/2020",
 		CreatedAt:            time.Now(),
 		CreatedBy:            "lribas",
 	}
