@@ -18,6 +18,25 @@ const (
 	COLLECTION = "paper"
 )
 
+func (repository *PaperRepository) _IsAlive() error {
+	return db.Session.Ping()
+}
+
+func (repository *PaperRepository) _CreateIndex() {
+	index := mgo.Index{
+		Key:        []string{"paper", "company"},
+		Unique:     true,
+		DropDups:   true,
+		Background: true,
+		Sparse:     true,
+	}
+
+	if err := db.C(COLLECTION).EnsureIndex(index); err != nil {
+		//stop the execution
+		panic(err)
+	}
+}
+
 func (repository *PaperRepository) _Connect(Server string, Database string) {
 	session, err := mgo.Dial(Server)
 

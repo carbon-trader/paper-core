@@ -20,6 +20,16 @@ func (service *PaperService) Connect() {
 	repository._Connect(service.Server, service.Database)
 }
 
+//CreateDBIndex create index in database
+func (service *PaperService) CreateDBIndex() {
+	repository._CreateIndex()
+}
+
+//isDBAlive Verify if the database is up
+func (service *PaperService) isDBAlive() error {
+	return repository._IsAlive()
+}
+
 //Save service func
 func (service *PaperService) Save(model model.PaperModel) error {
 	model.ID = bson.NewObjectId()
