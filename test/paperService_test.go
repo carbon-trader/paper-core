@@ -45,16 +45,10 @@ func TestAddPaper(t *testing.T) {
 func TestGetAllPaper(t *testing.T) {
 	testing.Init()
 
-	models, err := service.GetAll()
+	_, err := service.GetAll()
 
 	if err != nil {
 		t.Errorf("Error to persist information in database %s", err)
-	}
-
-	for _, value := range models {
-		if value.Paper != TESTPAPER {
-			t.Errorf("Error to persist information in database %s", err)
-		}
 	}
 }
 
