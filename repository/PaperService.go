@@ -58,3 +58,23 @@ func (service *PaperService) GetAll() ([]model.PaperModel, error) {
 func (service *PaperService) FindByPaper(paper string) (model.PaperModel, error) {
 	return repository._FindByPaper(paper)
 }
+
+//FindByCompany Apply Like %TEXT%
+func (service *PaperService) FindByCompany(company string) ([]model.PaperModel, error) {
+	return repository._FindByCompany(company)
+}
+
+//FindBySector find paper by sector
+func (service *PaperService) FindBySector(sector string) ([]model.PaperModel, error) {
+	return repository._FindBySector(sector)
+}
+
+//FindBySubsector find paper by subsector
+func (service *PaperService) FindBySubsector(subsector string) ([]model.PaperModel, error) {
+	return repository._FindBySubsector(subsector)
+}
+
+//FindByID find paper by ID
+func (servic *PaperService) FindByID(id string) (model.PaperModel, error) {
+	return repository._FindByID(id)
+}

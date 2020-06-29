@@ -65,14 +65,38 @@ func (repository *PaperRepository) _Delete(id string) error {
 }
 
 func (repository *PaperRepository) _GetAll() ([]model.PaperModel, error) {
-	var model []model.PaperModel
-	err := db.C(COLLECTION).Find(bson.M{}).All(&model)
+	var models []model.PaperModel
+	err := db.C(COLLECTION).Find(bson.M{}).All(&models)
 
-	return model, err
+	return models, err
 }
 
 func (repository *PaperRepository) _FindByPaper(paper string) (model.PaperModel, error) {
 	var model model.PaperModel
 	err := db.C(COLLECTION).Find(bson.M{"paper": paper}).One(&model)
+	return model, err
+}
+
+func (repository *PaperRepository) _FindByCompany(company string) ([]model.PaperModel, error) {
+	var models []model.PaperModel
+	err := db.C(COLLECTION).Find(bson.M{"company": bson.RegEx{"^.*?" + company + ".*?$", ""}}).All(&models)
+	return models, err
+}
+
+func (repository *PaperRepository) _FindBySector(sector string) ([]model.PaperModel, error) {
+	var models []model.PaperModel
+	err := db.C(COLLECTION).Find(bson.M{"sector": sector}).All(&models)
+	return models, err
+}
+
+func (repository *PaperRepository) _FindBySubsector(subsector string) ([]model.PaperModel, error) {
+	var models []model.PaperModel
+	err := db.C(COLLECTION).Find(bson.M{"subsector": subsector}).All(&models)
+	return models, err
+}
+
+func (repository *PaperRepository) _FindByID(id string) (model.PaperModel, error) {
+	var model model.PaperModel
+	err := db.C(COLLECTION).FindId(bson.ObjectIdHex(id)).One(&model)
 	return model, err
 }

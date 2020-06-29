@@ -61,6 +61,44 @@ func TestFindByPaper(t *testing.T) {
 	}
 }
 
+func TestLikeCompany(t *testing.T) {
+	testing.Init()
+
+	models, err := service.FindByCompany("Teste")
+
+	if err != nil {
+		t.Errorf("Error to execute like query %s", err.Error())
+	}
+
+	for _, model := range models {
+		if model.Company != "Teste Itau" {
+			t.Errorf("Not find elements")
+		}
+	}
+}
+
+func TestFindBySector(t *testing.T) {
+	testing.Init()
+
+	_, err := service.FindBySector("Banco")
+
+	if err != nil {
+		t.Errorf("Error to find by sector, %s", err.Error())
+	}
+
+}
+
+func TestFindBySubsector(t *testing.T) {
+	testing.Init()
+
+	_, err := service.FindBySubsector("Financeiro")
+
+	if err != nil {
+		t.Errorf("Error to find by sector, %s", err.Error())
+	}
+
+}
+
 func TestUpdatePaper(t *testing.T) {
 	testing.Init()
 	model, err := service.FindByPaper(TESTPAPER)
