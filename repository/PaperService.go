@@ -75,6 +75,6 @@ func (service *PaperService) FindBySubsector(subsector string) ([]model.PaperMod
 }
 
 //FindByID find paper by ID
-func (servic *PaperService) FindByID(id string) (model.PaperModel, error) {
+func (service *PaperService) FindByID(id string) (model.PaperModel, error) {
 	return repository._FindByID(id)
 }

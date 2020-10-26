@@ -67,7 +67,6 @@ func (repository *PaperRepository) _Delete(id string) error {
 func (repository *PaperRepository) _GetAll() ([]model.PaperModel, error) {
 	var models []model.PaperModel
 	err := db.C(COLLECTION).Find(bson.M{}).All(&models)
-
 	return models, err
 }
 
