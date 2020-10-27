@@ -25,8 +25,8 @@ func (service *PaperService) CreateDBIndex() {
 	repository._CreateIndex()
 }
 
-//isDBAlive Verify if the database is up
-func (service *PaperService) isDBAlive() error {
+//IsDBAlive Verify if the database is up
+func (service *PaperService) IsDBAlive() error {
 	return repository._IsAlive()
 }
 
