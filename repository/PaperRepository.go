@@ -39,12 +39,10 @@ func (repository *PaperRepository) _CreateIndex() {
 
 func (repository *PaperRepository) _Connect(Server string, Database string) {
 	session, err := mgo.Dial(Server)
-
 	// Verify if occurs some error and stop application
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	// Establish a session with database
 	db = session.DB(Database)
 }
