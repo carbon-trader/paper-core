@@ -11,12 +11,8 @@ import (
 
 var service = repository.PaperService{}
 
-const (
-	TESTPAPER = "TESTE1"
-)
-
 func init() {
-	service.Server = "root:example@localhost"
+	service.Server = "root:root@localhost"
 	service.Database = "carbontrader_db"
 	service.Connect()
 }
@@ -25,16 +21,20 @@ func TestAddPaper(t *testing.T) {
 
 	testing.Init()
 
-	var model = model.PaperModel{
-		ID:                   bson.NewObjectId(),
-		Paper:                "TESTE1",
-		Type:                 "ON",
-		Company:              "Teste Itau",
-		Sector:               "Financeiro",
-		Subsector:            "Banco",
-		LastBalanceProcessed: "31/03/2020",
-		CreatedAt:            time.Now(),
-		CreatedBy:            "lribas",
+	var model = model.Paper{
+		ID:             bson.NewObjectId(),
+		Paper:          "ITSA4",
+		CommercialName: "ITAÚSA",
+		CompanyName:    "ITAÚSA - INVESTIMENTOS ITAÚ S.A.",
+		Type:           "PN N1",
+		Sector:         "Financeiros",
+		SubSector:      "Bancos",
+		MarketValue:    "96.303.800.000",
+		CompanyValue:   "97.143.800.000",
+		NStock:         "8.410.810.000",
+		LastBalance:    time.Now(),
+		CreatedAt:      time.Now(),
+		UpdatedAt:      time.Now(),
 	}
 
 	if _, err := service.Save(model); err != nil {
@@ -54,7 +54,7 @@ func TestGetAllPaper(t *testing.T) {
 
 func TestFindByPaper(t *testing.T) {
 	testing.Init()
-	_, err := service.FindByPaper(TESTPAPER)
+	_, err := service.FindByPaper("ITSA4")
 
 	if err != nil {
 		t.Errorf("Error to persist information in database %s", err)
@@ -64,14 +64,14 @@ func TestFindByPaper(t *testing.T) {
 func TestLikeCompany(t *testing.T) {
 	testing.Init()
 
-	models, err := service.FindByCompany("Teste")
+	models, err := service.FindByCommercialName("ITAÚSA")
 
 	if err != nil {
 		t.Errorf("Error to execute like query %s", err.Error())
 	}
 
 	for _, model := range models {
-		if model.Company != "Teste Itau" {
+		if model.CommercialName != "ITAÚSA" {
 			t.Errorf("Not find elements")
 		}
 	}
@@ -80,7 +80,7 @@ func TestLikeCompany(t *testing.T) {
 func TestFindBySector(t *testing.T) {
 	testing.Init()
 
-	_, err := service.FindBySector("Banco")
+	_, err := service.FindBySector("Financeiros")
 
 	if err != nil {
 		t.Errorf("Error to find by sector, %s", err.Error())
@@ -91,7 +91,7 @@ func TestFindBySector(t *testing.T) {
 func TestFindBySubsector(t *testing.T) {
 	testing.Init()
 
-	_, err := service.FindBySubsector("Financeiro")
+	_, err := service.FindBySubsector("Bancos")
 
 	if err != nil {
 		t.Errorf("Error to find by sector, %s", err.Error())
@@ -101,13 +101,13 @@ func TestFindBySubsector(t *testing.T) {
 
 func TestUpdatePaper(t *testing.T) {
 	testing.Init()
-	model, err := service.FindByPaper(TESTPAPER)
+	model, err := service.FindByPaper("ITSA4")
 
 	if err != nil {
 		t.Errorf("Error to persist information in database %s", err)
 	} else {
 
-		model.Company = "New Company"
+		model.CommercialName = "ITAÚSA UPDATED"
 
 		if err := service.Update(model.ID.Hex(), model); err != nil {
 			t.Errorf("Error to update %s", err)
@@ -117,16 +117,16 @@ func TestUpdatePaper(t *testing.T) {
 
 func TestDeletePaper(t *testing.T) {
 	testing.Init()
-	model, err := service.FindByPaper(TESTPAPER)
+	model, err := service.FindByPaper("ITSA4")
 
 	if err != nil {
 		t.Errorf("Error to persist information in database %s", err)
 	} else {
 
-		model.Company = "New Company"
-
-		if err := service.Delete(model.ID.Hex()); err != nil {
-			t.Errorf("Error to update %s", err)
+		if model.CommercialName == "ITAÚSA UPDATED" {
+			if err := service.Delete(model.ID.Hex()); err != nil {
+				t.Errorf("Error to update %s", err)
+			}
 		}
 	}
 }

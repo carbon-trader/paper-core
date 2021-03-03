@@ -31,7 +31,7 @@ func (service *PaperService) IsDBAlive() error {
 }
 
 //Save service func
-func (service *PaperService) Save(model model.PaperModel) (bson.ObjectId, error) {
+func (service *PaperService) Save(model model.Paper) (bson.ObjectId, error) {
 	model.ID = bson.NewObjectId()
 	model.CreatedAt = time.Now()
 
@@ -39,7 +39,7 @@ func (service *PaperService) Save(model model.PaperModel) (bson.ObjectId, error)
 }
 
 //Update service func
-func (service *PaperService) Update(id string, model model.PaperModel) error {
+func (service *PaperService) Update(id string, model model.Paper) error {
 	model.UpdatedAt = time.Now()
 	return repository._Update(id, model)
 }
@@ -50,31 +50,31 @@ func (service *PaperService) Delete(id string) error {
 }
 
 //GetAll service func
-func (service *PaperService) GetAll() ([]model.PaperModel, error) {
+func (service *PaperService) GetAll() ([]model.Paper, error) {
 	return repository._GetAll()
 }
 
 //FindByPaper service func
-func (service *PaperService) FindByPaper(paper string) (model.PaperModel, error) {
+func (service *PaperService) FindByPaper(paper string) (model.Paper, error) {
 	return repository._FindByPaper(paper)
 }
 
-//FindByCompany Apply Like %TEXT%
-func (service *PaperService) FindByCompany(company string) ([]model.PaperModel, error) {
-	return repository._FindByCompany(company)
+//FindByCommercialName Apply Like %TEXT%
+func (service *PaperService) FindByCommercialName(commercialName string) ([]model.Paper, error) {
+	return repository._FindByCommercialName(commercialName)
 }
 
 //FindBySector find paper by sector
-func (service *PaperService) FindBySector(sector string) ([]model.PaperModel, error) {
+func (service *PaperService) FindBySector(sector string) ([]model.Paper, error) {
 	return repository._FindBySector(sector)
 }
 
 //FindBySubsector find paper by subsector
-func (service *PaperService) FindBySubsector(subsector string) ([]model.PaperModel, error) {
-	return repository._FindBySubsector(subsector)
+func (service *PaperService) FindBySubsector(subsector string) ([]model.Paper, error) {
+	return repository._FindBySubSector(subsector)
 }
 
 //FindByID find paper by ID
-func (service *PaperService) FindByID(id string) (model.PaperModel, error) {
+func (service *PaperService) FindByID(id string) (model.Paper, error) {
 	return repository._FindByID(id)
 }
