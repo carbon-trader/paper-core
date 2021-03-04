@@ -8,17 +8,17 @@ import (
 
 //Paper struct
 type Paper struct {
-	ID             bson.ObjectId `bson:"_id" json:"id"`
-	Paper          string        `bson:"paper" json:"paper"`
-	CommercialName string        `bson:"" json:""`
-	CompanyName    string        `bson:"" json:""`
-	Type           string        `bson:"" json:""`
-	Sector         string        `bson:"" json:""`
-	SubSector      string        `bson:"" json:""`
-	MarketValue    string        `bson:"" json:""`
-	CompanyValue   string        `bson:"" json:""`
-	NStock         string        `bson:"" json:""`
-	LastBalance    time.Time     `bson:"" json:""`
-	CreatedAt      time.Time     `bson:"" json:""`
-	UpdatedAt      time.Time     `bson:"" json:""`
+	ID             bson.ObjectId `bson:"_Id"            json:"Id"`
+	Paper          string        `bson:"Paper"          json:"Paper"`
+	CommercialName string        `bson:"CommercialName" json:"CommercialName"`
+	CompanyName    string        `bson:"CompanyName"    json:"CompanyName"`
+	Type           string        `bson:"Type"           json:"Type"`
+	Sector         string        `bson:"Sector"         json:"Sector"`
+	SubSector      string        `bson:"SubSector"      json:"SubSector"`
+	MarketValue    string        `bson:"MarketValue"    json:"MarketValue"`
+	CompanyValue   string        `bson:"CompanyValue"   json:"CompanyValue"`
+	NStock         string        `bson:"NStock"         json:"NStock"`
+	LastBalance    time.Time     `bson:"LastBalance"    json:"LastBalance"`
+	CreatedAt      time.Time     `bson:"CreatedAt"      json:"CreatedAt"`
+	UpdatedAt      time.Time     `bson:"UpdatedAt"      json:"UpdatedAt"`
 }
